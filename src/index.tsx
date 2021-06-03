@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react'
-import type { RefObject } from 'react'
 
+import type { RefObject } from 'react'
 type NodeInHtml = Node & ParentNode
 
 export interface Coords {
@@ -10,7 +10,15 @@ export interface Coords {
 
 interface Props {
   containerRef: RefObject<SVGGraphicsElement>
-  onDragEnd: ({ from, to }: { from: Coords; to: Coords }) => void
+  onDragEnd?: ({ from, to }: { from: Coords; to: Coords }) => void
+}
+
+type EventHandler = (evt: any) => void
+
+interface ReturnObject {
+  startDrag: EventHandler
+  drag: EventHandler
+  endDrag: EventHandler
 }
 
 function findFirstSvgParent(node: NodeInHtml): any {
@@ -19,7 +27,10 @@ function findFirstSvgParent(node: NodeInHtml): any {
   return findFirstSvgParent(node.parentNode)
 }
 
-export default function useDraggable({ containerRef, onDragEnd }: Props) {
+export default function useDraggable({
+  containerRef,
+  onDragEnd
+}: Props): ReturnObject {
   const draggedSvg = useRef<any>()
   const dragOffset = useRef<any>()
   const draggedFrom = useRef<any>()
@@ -47,11 +58,15 @@ export default function useDraggable({ containerRef, onDragEnd }: Props) {
   function endDrag(): void {
     const svgNode: any = draggedSvg.current
     if (svgNode) {
-      const x = svgNode.getAttributeNS(null, 'x') || 0
-      const y = svgNode.getAttributeNS(null, 'y') || 0
-      svgNode.setAttributeNS(null, 'x', Math.round(x))
-      svgNode.setAttributeNS(null, 'y', Math.round(y))
-      onDragEnd({ to: { x, y }, from: draggedFrom.current })
+      const x = parseFloat(svgNode.getAttributeNS(null, 'x')) || 0
+      const y = parseFloat(svgNode.getAttributeNS(null, 'y')) || 0
+      // svgNode.setAttributeNS(null, 'x', Math.round(x))
+      // svgNode.setAttributeNS(null, 'y', Math.round(y))
+      // svgNode.setAttributeNS(null, 'x', x)
+      // svgNode.setAttributeNS(null, 'y', y)
+      if (onDragEnd) {
+        onDragEnd({ to: { x, y }, from: draggedFrom.current })
+      }
     }
     draggedSvg.current = null
   }

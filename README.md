@@ -4,6 +4,9 @@
 
 [![NPM](https://img.shields.io/npm/v/use-draggable-svg.svg)](https://www.npmjs.com/package/use-draggable-svg) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+## Demo
+
+[Demo](https://motiko.github.io/use-draggable-svg/)
 ## Install
 
 ```bash

@@ -1,11 +1,12 @@
 # use-draggable-svg
 
-Right now supports only svg in svg. Support for draggable groups is comming.
-Open to PR's and suggestions.
-
 > React hook to drag SVG objects
 
 [![NPM](https://img.shields.io/npm/v/use-draggable-svg.svg)](https://www.npmjs.com/package/use-draggable-svg) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+Right now supports only `svg` in `svg`. Support for draggable groups is comming.  
+Open to PR's and suggestions.
+
 
 ## Demo
 
